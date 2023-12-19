@@ -1,0 +1,294 @@
+//perform matrix operation(exp no1)
+
+import numpy as np
+rows1 = int(input("Enter the number of rows for matrix 1: "))
+cols1 = int(input("Enter the number of columns for matrix 1: "))
+
+
+matrix1=np.empty((rows1,cols1), dtype=float)
+
+print("Enter the value of the first matrix:")
+for i in range(rows1):
+    for j in range(cols1):
+        matrix1[i][j]=float(input(f"Enter element at position ({i + 1}, {j + 1}): "))
+
+rows2 = int(input("Enter the number of rows for matrix 2: "))
+cols2 = int(input("Enter the number of columns for matrix 2: "))
+
+matrix2=np.empty((rows2,cols2), dtype=float)
+
+print("Enter the value of the second matrix:")
+for i in range(rows2):
+    for j in range(cols2):
+        matrix2[i][j]=float(input(f"Enter element at position ({i + 1}, {j + 1}): "))
+
+print("\nMatrix 1:")
+print(matrix1)
+
+print("\nMatrix 2:")
+print(matrix2)
+
+sum=np.add(matrix1,matrix2)
+print("sum:", sum)
+
+prod=np.multiply(matrix1,matrix2)
+print("product:", prod)
+
+sub=np.subtract(matrix1,matrix2)
+print("subtract:", sub)
+
+trp1=np.transpose(matrix1)
+trp2=np.transpose(matrix2)
+print("transpose:", trp1)
+print("transpose:", trp2)
+
+dot=np.dot(matrix1,matrix2)
+print("dot product:", dot)
+
+sqrt1=np.sqrt(matrix1)
+sqrt2=np.sqrt(matrix2)
+print("square root:", sqrt1)
+print("square root:", sqrt2)
+
+
+
+//perform single value decomposition (SVD) using numpy
+
+import numpy as np
+matrix=np.array([[5,6,4],
+                [2,5,6],
+                [3,5,6]])
+U,S,VT =np.linalg.svd(matrix)
+print("U Matrix:")
+print(U)
+print("S Matrix :")
+print(np.diag(S))
+print("VT Matrix :")
+print(VT)
+reconstructed_matrix=np.dot(U,np.dot(np.diag(S),VT))
+print("\nreconstructed_matrix")
+print(reconstructed_matrix)
+
+
+
+//perform data virtualization using python library using matplotlib
+
+import plot as plot
+import matplotlib.pyplot as plt
+category=['a','b','c','d']
+values=[1,2,3,4]
+plt.bar(category,values,color='skyblue')
+plt.show()
+
+//
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+from sklearn.metrics import accuracy_score
+iris = load_iris()
+x=iris.data
+y=iris.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+knn=KNeighborsClassifier(n_neighbors=7)
+knn.fit(x_train,y_train)
+print(knn.predict(x_test))
+V=knn.predict(x_test)
+result=accuracy_score(y_test,V)
+print("accuracy:",result)
+
+//
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_digits
+from sklearn.metrics import accuracy_score
+load_digits = load_digits()
+x=load_digits.data
+y=load_digits.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+knn=KNeighborsClassifier(n_neighbors=7)
+knn.fit(x_train,y_train)
+print(knn.predict(x_test))
+V=knn.predict(x_test)
+result=accuracy_score(y_test,V)
+print("accuracy:",result)
+
+//
+
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_diabetes
+from sklearn.metrics import mean_squared_error
+load_diabetes = load_diabetes()
+x=load_diabetes.data
+y=load_diabetes.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+knn=KNeighborsRegressor(n_neighbors=7)
+knn.fit(x_train,y_train)
+print(knn.predict(x_test))
+V=knn.predict(x_test)
+result=mean_squared_error(y_test,V)
+print("accuracy:",result)
+
+//expno6
+
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+from sklearn.naive_bayes import GaussianNB
+from  sklearn.metrics import accuracy_score
+iris=load_iris()
+x=iris.data
+y=iris.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+clf=GaussianNB()
+clf.fit(x_train,y_train)
+print(clf.predict(x_test))
+V=clf.predict(x_test)
+result=accuracy_score(y_test,V)
+print("accuracy:",result)
+
+//expno7
+
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from  sklearn.metrics import accuracy_score
+
+iris=load_breast_cancer()
+x=iris.data
+y=iris.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+clf=GaussianNB()
+clf.fit(x_train,y_train)
+print(clf.predict(x_test))
+V=clf.predict(x_test)
+result=accuracy_score(y_test,V)
+print("accuracy:",result)
+
+//expno8
+DecisionTree
+
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+import matplotlib.pyplot as plt
+
+iris = load_iris()
+x = iris.data
+y = iris.target
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+# Initialize Decision Tree classifier with max_depth set to 3
+tree = DecisionTreeClassifier(max_depth=3)
+tree.fit(x_train, y_train)
+
+# Visualize the decision tree
+plt.figure(figsize=(12, 8))
+plot_tree(tree, feature_names=iris.feature_names, class_names=iris.target_names, filled=True)
+plt.show()
+
+# Make predictions and evaluate the model
+v = tree.predict(x_test)
+result = accuracy_score(y_test, v)
+report = classification_report(y_test, v)
+
+print("Accuracy:", result)
+print("\nClassification Report:\n", report)
+
+
+//expno9 linearregression
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+data = pd.read_csv('Salary_Data.csv')
+
+# Preparing the data
+x = data['YearsExperience'].values.reshape(-1, 1)  # Reshape should be 'reshape', and column name corrected
+y = data['Salary'].values
+
+# Splitting the data into training and testing sets
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+# Creating a Linear Regression model and fitting it with the training data
+model = LinearRegression()
+model.fit(x_train, y_train)
+
+# Making predictions on the test set
+y_pred = model.predict(x_test)
+
+# Plotting the training data and the regression line
+plt.scatter(x_test, y_test, color='red', label='Test data')
+plt.plot(x_test, y_pred, color='black', linewidth=2, label='Regression line')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.legend()
+plt.title('Linear Regression Model')
+plt.show()
+
+# Calculate R-squared score
+r2 = r2_score(y_test, y_pred)
+print(f"R-squared score: {r2}")
+
+
+
+
+//expno 11
+single regression
+
+
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+y_values =np.array([55,60,65,70,80])
+x_values = np.array([52,54,56,58,62]).reshape(-1,1)
+model=LinearRegression()
+model.fit(x_values,y_values)
+slope = model.coef_[0]
+intercept = model.intercept_
+print(f"slope(coefficent): {slope}")
+print(f"Intercept:{intercept}")
+
+
+//expno 12 multile regression
+
+import pandas as pd
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+
+california_housing = fetch_california_housing()
+
+
+data = pd.DataFrame(california_housing.data, columns=california_housing.feature_names)
+
+data['MedHouseVal'] = california_housing.target
+
+
+X = data.drop('MedHouseVal', axis=1)
+y = data['MedHouseVal']
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+model = LinearRegression()
+
+
+model.fit(X_train, y_train)
+
+
+y_pred = model.predict(X_test)
+
+
+mse = mean_squared_error(y_test, y_pred)
+
+print("\nMean Squared Error:", mse)

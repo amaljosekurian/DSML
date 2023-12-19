@@ -1,0 +1,90 @@
+//expno:13
+date:21/11/23
+kmeans(iris)
+
+
+
+from sklearn.datasets import load_iris
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+iris=load_iris()
+x=iris.data
+y=iris.target
+kmeans=KMeans(n_clusters=3,random_state=42)
+kmeans.fit(x)
+cluster_labels=kmeans.labels_
+print(cluster_labels)
+centroids=kmeans.cluster_centers_
+print(centroids)
+plt.scatter(x[:,0],x[:,1],c=cluster_labels,cmap='viridis',marker='o',edgecolor='black')
+plt.scatter(centroids[:,0],centroids[:,1],marker='*',s=200,c='red',label='centroids')
+plt.xlabel(iris.feature_names[0])
+plt.ylabel(iris.feature_names[1])
+plt.title('KMeans Clustering of Iris Dataset')
+plt.legend()
+plt.show()
+
+
+
+//kmeans(breast_cancer)
+
+
+from sklearn.datasets import load_breast_cancer
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+
+bc=load_breast_cancer()
+X=bc.data
+Y=bc.target
+kmeans=KMeans(n_clusters=3, random_state=42)
+kmeans.fit(X)
+cluster_labels = kmeans.labels_
+print(cluster_labels)
+centroids=kmeans.cluster_centers_
+print(centroids)
+
+plt.scatter(X[:,0],X[:,1], c=cluster_labels, cmap='viridis',marker='o', edgecolors='black')
+plt.scatter(centroids[:,0],centroids[:,1],marker='*',s=200,c='red',label='Centroids')
+plt.xlabel(bc.feature_names[0])
+plt.ylabel(bc.feature_names[1])
+plt.title('KMeans Clustering of Breast Cancer Dataset')
+plt.legend()
+plt.s
+
+
+
+
+
+
+//SVM-support vector machine
+
+
+
+
+from sklearn.datasets import fetch_20newsgroups
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report,accuracy_score
+from sklearn.svm import SVC
+from  sklearn.feature_extraction.text import TfidfVectorizer
+
+categories=["alt.atheism","soc.religion.christian","comp.graphics","sci.med"]
+twenty=fetch_20newsgroups(subset="train",categories=categories,shuffle=True,random_state=45)
+
+vector=TfidfVectorizer()
+x_train_tfidf=vector.fit_transform(twenty.data)
+
+y_train=twenty.target
+
+x_train,x_test,y_train,y_test=train_test_split(x_train_tfidf,y_train,test_size=0.3)
+
+svm_classifier=SVC(kernel='linear',random_state=45)
+svm_classifier.fit(x_train,y_train)
+
+predictions=svm_classifier.predict(x_test)
+
+
+accuracy=accuracy_score(y_test,predictions)
+class_report=classification_report(y_test,predictions,target_names=twenty.target_names)
+
+print("accuracy",accuracy)
+print("classification report",class_report)
