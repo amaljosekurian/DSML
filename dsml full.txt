@@ -1,0 +1,398 @@
+Pgm 1 (Matrix operations use numpy)
+
+import numpy as np
+def input_matrix(matrix_name):
+   rows = int(input(f"Enter the no of rows of {matrix_name}: "))
+   cols = int(input(f"Enter the no of columns of {matrix_name}: "))
+   matrix=[]
+   print("Enter the elements:")
+   for i in range(rows):
+       rows=[]
+       for j in range(cols):
+           element=int(input(f"Enter the element at row {i+1},column {j+1}:"))
+           rows.append(element)
+       matrix.append(rows)
+   return np.array(matrix)
+matrix1 = input_matrix("matrix1")
+matrix2 = input_matrix("matrix2")
+sum = np.add(matrix1, matrix2)
+print("Addition=", sum)
+diff = np.subtract(matrix1, matrix2)
+print("Subtraction=", diff)
+prod = np.multiply(matrix1, matrix2)
+print("Multiplication=", prod)
+div = np.divide(matrix1, matrix2)
+print("Division=", div)
+transp = np.transpose(matrix1)
+print("Transpose=", transp)
+dot = np.dot(matrix1, matrix2)
+print("Dot product=", dot)
+
+Pgm 2 (SVD using numpy)
+
+import numpy as np
+matrix = np.array([[5, 6, 4],
+                  [2, 5, 6],
+                  [3, 5, 6]])
+U, S, VT = np.linalg.svd(matrix)
+print("Matrix U: ")
+print(U)
+print("Matrix S: ")
+print(np.diag(S))
+print("Matrix VT: ")
+print(VT)
+recnstrct = np.dot(U,np.dot(np.diag(S),VT))
+print("Old Matrix: ")
+print(recnstrct)
+
+Pgm 3 (data visualisation - matplotlib)
+
+import matplotlib.pyplot as plt
+categories=["a","b","c","d"]
+values=[1,2,3,4]
+plt.bar(categories,values,color='skyblue')
+plt.xlabel(categories)
+plt.ylabel(values)
+plt.title("barchart")
+plt.show()
+
+Pgm 4 (KNN Iris)
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+from sklearn.metrics import accuracy_score
+iris=load_iris()
+x=iris.data
+y=iris.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+knn=KNeighborsClassifier(n_neighbors=7)
+knn.fit(x_train,y_train)
+print(knn.predict(x_test))
+V=knn.predict(x_test)
+result=accuracy_score(y_test,V)
+print("Accuracy= ",result)
+
+Pgm 5 (KNN Load_Digits)
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+digits=load_digits()
+x=digits.data
+y=digits.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+knn=KNeighborsClassifier(n_neighbors=7)
+knn.fit(x_train,y_train)
+print((knn.predict(x_test)))
+P=knn.predict(x_test)
+R=accuracy_score(y_test,P)
+print("Accuracy= ",R)
+
+Pgm 6 (Nave Bayes Iris)
+
+from sklearn.naive_bayes import GaussianNB
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+iris=load_iris()
+x=iris.data
+y=iris.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+clf=GaussianNB()
+clf.fit(x_train,y_train)
+print(clf.predict(x_test))
+V=clf.predict(x_test)
+result=accuracy_score(y_test,V)
+print("Accuracy= ",result)
+
+Pgm 7 (Nave Bayes Breast cancer)
+
+from sklearn.naive_bayes import GaussianNB
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score,classification_report
+bc=load_breast_cancer()
+x=bc.data
+y=bc.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+gnb=GaussianNB()
+gnb.fit(x_train,y_train)
+print(gnb.predict(x_test))
+G=gnb.predict(x_test)
+result=accuracy_score(y_test,G)
+print("Accuracy= ",result)
+cr=classification_report(y_test,G)
+print("/n Classification Report: ",cr)
+
+Pgm 8 (Slope Intercept)
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+import numpy as np
+x_value = np.array([64,75,68,73,78,82,76,85,71,88]).reshape(-1,1)
+y_value = np.array([17,27,15,24,39,44,30,48,19,47])
+model=LinearRegression()
+model.fit(x_value,y_value)
+slope=model.coef_[0]
+intercept=model.intercept_
+print(f"Slope: {slope}")
+print(f"Intercept: {intercept}")
+
+Pgm 9 ( Simple Linear Regression ,R2 Score)
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+data=pd.read_csv('Salary_Data.csv')
+x=data['YearsExperience'].values.reshape(-1,1)
+y=data['Salary'].values
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+LR=LinearRegression()
+LR.fit(x_train,y_train)
+D=LR.predict(x_test)
+r2 = r2_score(y_test, D)
+print("R2 Score: ", r2)
+plt.scatter(x_test,y_test,color='black',label='Data Points')
+plt.plot(x_test,D,color='blue', linewidth=3,label='Regression Line')
+plt.xlabel='YearsExperience'
+plt.ylabel='Salary'
+plt.legend()
+plt.show()
+
+Pgm 10 (Multiple Linear Regression , Mean Sqrd err)
+
+import pandas as pd
+from sklearn.datasets import fetch_california_housing
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+california_housing=fetch_california_housing()
+df=pd.DataFrame(data=california_housing.data,columns=california_housing.feature_names)
+df['Target']=california_housing.target
+x=df.drop('Target',axis=1)
+y=df['Target']
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+model = LinearRegression()
+model.fit(x_train, y_train)
+predictions = model.predict(x_test)
+mse = mean_squared_error(y_test, predictions)
+print(f"Mean Squared Error: {mse}")
+
+Pgm 11 (Decision Tree Iris)
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier,plot_tree
+from sklearn.metrics import accuracy_score,classification_report
+from matplotlib import pyplot as plt
+iris=load_iris()
+x=iris.data
+y=iris.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+dt=DecisionTreeClassifier(max_depth=3)
+dt.fit(x_train,y_train)
+print(dt.predict(x_test))
+D=dt.predict(x_test)
+result=accuracy_score(y_test,D)
+print("Accuracy= ",result)
+cr=classification_report(y_test,D)
+print("Classification Report: ",cr)
+plt.figure(figsize=(15,20))
+plot_tree(dt,filled=True,feature_names=iris.feature_names,class_names=iris.target_names)
+plt.title("Decission Tree")
+plt.show()
+
+Pgm 12 (Decision Tree Breast Cancer)
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier,plot_tree
+from sklearn.metrics import accuracy_score,classification_report
+from matplotlib import pyplot as plt
+bc=load_breast_cancer()
+x=bc.data
+y=bc.target
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+dt=DecisionTreeClassifier(max_depth=2)
+dt.fit(x_train,y_train)
+print(dt.predict(x_test))
+D=dt.predict(x_test)
+result=accuracy_score(y_test,D)
+print("Accuracy= ",result)
+cr=classification_report(y_test,D)
+print("Classification Report: ",cr)
+plt.figure(figsize=(15,10))
+plot_tree(dt,filled=True,feature_names=bc.feature_names,class_names=bc.target_names)
+plt.title("Decission Tree")
+plt.show()
+
+Pgm 13 (K Means load iris)
+
+from sklearn.datasets import load_iris
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+iris = load_iris()
+x = iris.data
+y = iris.target
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(x)
+cluster_labels = kmeans.labels_
+print(cluster_labels)
+centroids = kmeans.cluster_centers_
+print(centroids)
+plt.scatter(x[:, 0], x[:, 1], c=cluster_labels, cmap='viridis', marker='o', edgecolors='black')
+plt.scatter(centroids[:, 0], centroids[:, 1], marker="*", s=200, c='red', label='Centroids')
+plt.xlabel(iris.feature_names[0])
+plt.ylabel(iris.feature_names[1])
+plt.title('KMeans Cluster of Iris Dataset')
+plt.legend()
+plt.show()
+
+Pgm 14 (K Means Breast Cancer)
+
+from sklearn.datasets import load_breast_cancer
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+bc = load_breast_cancer()
+x = bc.data
+y = bc.target
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(x)
+cluster_labels = kmeans.labels_
+print(cluster_labels)
+centroids = kmeans.cluster_centers_
+print(centroids)
+plt.scatter(x[:, 0], x[:, 1], c=cluster_labels, cmap='viridis', marker='o', edgecolors='black')
+plt.scatter(centroids[:, 0], centroids[:, 1], marker="*", s=200, c='red', label='Centroids')
+plt.xlabel(bc.feature_names[0])
+plt.ylabel(bc.feature_names[1])
+plt.title('KMeans Cluster of Breast Cancer Dataset')
+plt.legend()
+plt.show()
+
+Pgm 15 (SVM)
+
+from sklearn.datasets import fetch_20newsgroups
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score ,classification_report
+categories=['alt.atheism','soc.religion.christian','comp.graphics','sci.med']
+twenty_train=fetch_20newsgroups(subset='train',categories=categories,shuffle=True,random_state=42)
+vectorizer=TfidfVectorizer()
+X_train_tfidf=vectorizer.fit_transform(twenty_train.data)
+y_train = twenty_train.target
+x_train,x_test,y_train,y_test=train_test_split(X_train_tfidf,y_train,test_size=0.2,random_state=42)
+svm_classifier=SVC(kernel='linear',random_state=42)
+svm_classifier.fit(x_train,y_train)
+predictions=svm_classifier.predict(x_test)
+accuracy=accuracy_score(y_test,predictions)
+classification=classification_report(y_test,predictions,target_names=twenty_train.target_names)
+print("Accuracy",accuracy)
+print("classification_report:",classification)
+new_data=["I have a question about computer graphics","This is a medical related topic"]
+x_new_tfidf=vectorizer.transform(new_data)
+new_predictions=svm_classifier.predict(x_new_tfidf)
+for i,text in enumerate(new_data):
+ predicted_category=twenty_train.target_names[new_predictions[i]]
+ print("Predicted Cate",predicted_category)
+
+Pgm 16 (ANN Keras)
+
+import tensorflow as tf
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Flatten
+from tensorflow.keras.utils import to_categorical
+# Load the MNIST dataset
+(X_train, y_train), (X_test, y_test) =mnist.load_data()
+# Normalize pixel values to be between 0 and 1
+X_train = X_train / 255.0
+X_test = X_test / 255.0
+# Flatten the images (convert 28x28 images to 1D vectors)
+X_train = X_train.reshape(-1, 28 * 28)
+print(X_train)
+X_test = X_test.reshape(-1, 28 * 28)
+print(X_train)
+# One-hot encode the target labels
+y_train = to_categorical(y_train)
+y_test = to_categorical(y_test)
+print(y_test)
+# Create a simple feedforward neural network model
+model=Sequential([
+Dense(128, activation='relu', input_shape=(28 * 28,)),
+Dense(68, activation='relu'),
+Dense(10, activation='softmax')
+])
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+model.fit(X_train,y_train, epochs=5 , batch_size=32, validation_split=0.2)
+loss, accuracy= model.evaluate(X_test,y_test)
+print(accuracy)
+
+Pgm 17 (simple web crawler using requests library)
+
+import requests
+def simple_scraper(url):
+   response=requests.get(url)
+   if response.status_code==200:
+       print("Content:")
+       print(response.text)
+   else:
+       print("Failed to fetch the page. Status code:", response.status_code)
+url_to_scrap="https://ajce.in"
+simple_scraper(url_to_scrap)
+
+Pgm 18 (simple web crawler and parse the content using BeautifulSoup)
+
+import requests
+from bs4 import BeautifulSoup
+def simple_scraper(url):
+   response=requests.get(url)
+   if response.status_code==200:
+       soup=BeautifulSoup(response.content, 'html.parser')
+       print("Title:",soup.title.string)
+       print("Content:")
+       print(soup.get_text())
+   else:
+       print("Failed to fetch the page. Status code:", response.status_code)
+url_to_scrap="https://ajce.in"
+simple_scraper(url_to_scrap)
+
+Pgm 19 (natural language processing NLTK)
+
+import nltk
+nltk.download('brown')
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+from nltk.tokenize import word_tokenize
+from nltk.util import ngrams
+from nltk.corpus import brown
+from nltk.chunk import RegexpParser
+sentence = "The quick brown fox jumps over the lazy dog"
+tokens = word_tokenize(sentence)
+print(tokens)
+pos_tags = nltk.pos_tag(tokens)
+print("Part-of-Speech Tagging: ")
+print(pos_tags)
+text = brown.words(categories='news')[:1000]
+bigrams = list(ngrams(text, 2))
+freq_dist = nltk.FreqDist(bigrams)
+print("\n N-gram Analysis (Bigrams with Smoothing): ")
+for bigram in bigrams:
+print(f"{bigram}: {freq_dist[bigram]}")
+tagged_sentence = nltk.pos_tag(word_tokenize("The quick brown fox jumps over the lazy dog"))
+grammar = r"NP: {<DT>?<JJ>*<NN>}"
+cp = RegexpParser(grammar)
+result = cp.parse(tagged_sentence)
+print("\n Chunking with Regular Expressions and POS tags: ")
+print(result)
+
+
+
+
+
+
+
